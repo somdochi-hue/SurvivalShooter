@@ -31,7 +31,7 @@ public class MonsterMovement : LivingEntity, IDamageable
     private AudioSource monsterAudioSource;
     private Status currentStatus;
     public static readonly int IdHasTarget = Animator.StringToHash("HasTarget");
-    public static readonly int IdDie = Animator.StringToHash("Die");
+    public static readonly int IdDie = Animator.StringToHash("Death");
 
     public Status CurrentStatus
     {
@@ -123,6 +123,8 @@ public class MonsterMovement : LivingEntity, IDamageable
     }
 
     private void UpdateDie() { }
+
+    public void StartSinking() { }
 
     private void UpdateAttack()
     {

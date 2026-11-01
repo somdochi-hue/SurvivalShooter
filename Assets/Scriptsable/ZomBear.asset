@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfaa1fea69ae4804dbe35a746ad5aa0d, type: 3}
   m_Name: ZomBear
   m_EditorClassIdentifier: Assembly-CSharp::MosterData
-  hp: 100
+  maxHp: 100
   speed: 7
   damage: 20
