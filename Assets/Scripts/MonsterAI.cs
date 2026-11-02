@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Net.Http.Headers;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,6 +19,8 @@ public class MonsterMovement : LivingEntity, IDamageable
     public float AttackDistance = 1.5f;
     public float AttackInterber = 1f;
     private float lastAttackTime;
+    private bool isSinking = false;
+    public float sinkSpeed = 2f;
     public Transform target;
     public LayerMask targetLayer;
     public ParticleSystem hitEffect;
@@ -122,9 +125,34 @@ public class MonsterMovement : LivingEntity, IDamageable
         }
     }
 
-    private void UpdateDie() { }
+    private void UpdateDie()
+    {
+        if (isSinking)
+        {
+            transform.Translate(Vector3.down * sinkSpeed * Time.deltaTime, Space.World);
+        }
+    }
 
-    public void StartSinking() { }
+    public void StartSinking()
+    {
+        if (agent != null && agent.enabled)
+        {
+            agent.enabled = false;
+        }
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if(rb != null)
+        {
+            rb.isKinematic = true;
+        }
+        isSinking = true;
+        Invoke("DisableObject", 2f);
+    }
+
+    private void DisableObject()
+    {
+        isSinking = false;
+        gameObject.SetActive(false);
+    }
 
     private void UpdateAttack()
     {
